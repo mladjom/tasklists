@@ -24,20 +24,23 @@ class Todo extends CI_Controller {
 		//$data['get_active'] = $this->todo_model->getCompleted();
 		//$data['get_completed'] = $this->todo_model->getActive(); 		
     
-		//$data['all_todos'] = $this->todo_model->allTodosByUser($this->session->userdata('id'));
+		$data['all_todos'] = $this->todo_model->allTodosByUser($this->session->userdata('user_id'));
     
-		//Here we geting user active todos 
-		$data['active_todos'] = $this->todo_model->activeTodosByUser($this->session->userdata('id'));
+		$content['user_lists'] = $this->todo_model->getUserLists($this->session->userdata('user_id'));
 		
+		//Here we geting user active todos 
+		$data['active_todos'] = $this->todo_model->activeTodosByUser($this->session->userdata('user_id'));
+
 		//Here we geting user completed todos 
-		$data['completed_todos'] = $this->todo_model->completedTodosByUser($this->session->userdata('id'));		
+		$data['completed_todos'] = $this->todo_model->completedTodosByUser($this->session->userdata('user_id'));		
  
-		$data['todo_lists'] = $this->todo_model->getAllLists();
+		//$data['todo_lists'] = $this->todo_model->getAllLists();
 		
 		$data['flash_message'] = $this->session->flashdata('message');		
-		
+	    //echo json_encode($data['active_todos']);	
 		// Loading views
 		$this->load->view('includes/header');
+		$this->load->view('includes/sidebar', $content);
 		$this->load->view('todo/index', $data);
 		$this->load->view('includes/footer');
 
@@ -57,23 +60,37 @@ class Todo extends CI_Controller {
 
 		}
 				
-		$data['todo_lists'] = $this->todo_model->getAllLists();
  
 		if ($this->form_validation->run())
         {
-			$todo = array(
+			$data = array(
 							'title'=>$this->input->post('title'),
 							'description'=>$this->input->post('description'),
-							'list_id'=>$this->input->post('list'),
-							'users_id'=>$this->session->userdata('id')
+							'lists_id'=>$this->input->post('list'),
+							'users_id'=>$this->session->userdata('user_id')
 							);
-				$this->todo_model->add($todo);
+				$this->todo_model->add($data);
 	
 				$this->session->set_flashdata('message', 'Done. You have added new task.');            
 				redirect('/');
 		}
-
+	
 	}
+
+		public function delete($id)
+    {
+
+        $data = $this->todo_model->getById($id);
+ 
+        if ($this->todo_model->delete($id)) {
+            $this->session->set_flashdata('message', "Done. You have deleted $data->title.");                        
+        } else {
+            $this->session->set_flashdata('message', "No data found. You deleted wrong to do."); 
+        }
+        redirect('');
+ 
+    }
+
 
   public function update($id) 
 	{
@@ -94,13 +111,34 @@ class Todo extends CI_Controller {
 		}
 	}
 
-		public function delete($id)
+	public function lists($id)
+	{
+	
+		$data = $this->todo_model->getListsId($id);
+
+ 		$content['user_lists'] = $this->todo_model->getUserLists($this->session->userdata('user_id'));
+ 
+		$content['list_todos'] = $this->todo_model->getListTodos($id);
+
+		$content['active_list_todos'] = $this->todo_model->ActiveListTodos($id);
+
+		$content['completed_list_todos'] = $this->todo_model->CompletedListTodos($id);
+		
+		// Loading views
+		$this->load->view('includes/header');
+		$this->load->view('includes/sidebar', $content);
+		$this->load->view('todo/lists', $data);
+		$this->load->view('includes/footer');
+
+	}
+
+		public function delete_list($id)
     {
 
-        $data = $this->todo_model->getById($id);
+        $data = $this->todo_model->getListsId($id);
  
-        if ($this->todo_model->delete($id)) {
-            $this->session->set_flashdata('message', "Done. You have deleted $data->title.");                        
+        if ($this->todo_model->deleteList($id)) {
+            $this->session->set_flashdata('message', "Done. You have deleted $data->list_name.");                        
         } else {
             $this->session->set_flashdata('message', "No data found. You deleted wrong to do."); 
         }
@@ -124,7 +162,8 @@ class Todo extends CI_Controller {
         if ($this->form_validation->run())
         {
             $todo = array(
-                    'list_name'=>$this->input->post('list_name')
+                    'list_name'=>$this->input->post('list_name'),
+										'users_id'=>$this->session->userdata('user_id')
                     );
             $this->todo_model->addList($todo);
  

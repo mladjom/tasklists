@@ -39,7 +39,8 @@
     		<div id="nav">
 					<div class="nav-no-collapse header-nav">
 						<ul class="nav navbar-nav pull-right">
-        			<li><?php echo anchor('app/add_todo' , '<i class="icon-wrench"></i>', 'class="btn"') ?></li>
+        			<li>	Number of queries:	<?php echo $this->db->total_queries();?>	
+							<?php echo anchor('app/add_todo' , '<i class="icon-wrench"></i>', 'class="btn"') ?></li>
 						<!-- start: User Dropdown -->
 							<li class="dropdown">
 								<a class="btn account dropdown-toggle" data-toggle="dropdown" href="#">
@@ -61,7 +62,6 @@
 						</ul>
 					</div>
    	 		</div>	
-			</div>
     	<?php endif; ?>	
 		</div>
 	</header>

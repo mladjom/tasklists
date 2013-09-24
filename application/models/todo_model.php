@@ -61,6 +61,7 @@ class Todo_model extends CI_Model {
     }
   }
 
+
   public function activeTodosByUser($users_id) {
     $where = array(
       'users_id' => $users_id,
@@ -92,54 +93,12 @@ class Todo_model extends CI_Model {
   }
 
 	/**
-	 * Get lists data
-	 */
-	 
-	function getAllLists()
-	{
-		//Query the data table for every record and row
-		$query = $this->db->get('todo_lists');
-		return $query->result();
-	}
-	function getListsId($id) 
-	{
-		// Get lists by id
-		$query = $this->db->get_where('todo_lists', array('id'=>$id));  	
-		return $result[0];
-	} 
-
-	/**
-	 * Get user lists
-	 */
-
-	function getUserLists()
-	{
-		//Query the data table for every record and row
-		$query = $this->db->get('todo_lists');
-		return $query->result();
-
-    $where = array(
-      'users_id' => $users_id
-    );
-    $this->db->join('users', 'users.user_id = todo_lists.users_id', 'INNER');
-    $query = $this->db->get_where('todos', $where);
-
-    if($query->num_rows() > 0) {
-      return $query->result();
-    } else {
-      return FALSE;
-    }
-
-
-
-	}
-
-	/**
 	 * CRUD Todos
 	 */
 	public function add($data)
 	{
 		$this->db->insert('todos', $data); 
+
 	}
 
 	public function delete($id)
@@ -160,7 +119,7 @@ class Todo_model extends CI_Model {
 		$data = array(
 				'title'=>$this->input->post('title'),
 				'description'=>$this->input->post('description'),
-				'users_id'=>$this->session->userdata('id')
+				'users_id'=>$this->session->userdata('user_id')
 
 		);
 		$this->db->where('id', $id);
@@ -193,6 +152,105 @@ class Todo_model extends CI_Model {
         }   
 	}
 
+
+	/**
+	 * Get lists data
+	 */
+	 
+	public function getAllLists()
+	{
+		//Query the data table for every record and row
+		$query = $this->db->get('todo_lists');
+		return $query->result();
+	}
+	
+	/**
+	 * Get user lists
+	 */
+
+	public function getUserLists($users_id )
+	{
+
+    $where = array(
+      'users_id' => $users_id,
+
+    );
+    $this->db->join('users', 'users.user_id = todo_lists.users_id', 'INNER');
+
+    $query = $this->db->get_where('todo_lists', $where);
+
+    if($query->num_rows() > 0) {
+      return $query->result();
+    } else {
+      return FALSE;
+    }
+
+	}
+	public function getListsId($id) 
+	{
+		// Get lists by id
+		$query = $this->db->get_where('todo_lists', array('list_id'=>$id));  	
+		return $query->row();
+	}
+ 
+ public function getListTodos($id ) {
+
+    $where = array(
+      'list_id' => $id,
+		);
+ 
+		$this->db->join('users', 'users.user_id = todos.users_id', 'INNER');
+		$this->db->join('todo_lists', 'todos.lists_id = todo_lists.list_id', 'INNER');
+
+    $query = $this->db->get_where('todos', $where);
+
+    if($query->num_rows() > 0) {
+      return $query->result();
+    } else {
+      return FALSE;
+    }
+  }
+ public function ActiveListTodos($id) {
+
+    $where = array(
+      'list_id' => $id,
+      'status' => '1'
+		);
+ 
+		$this->db->join('users', 'users.user_id = todos.users_id', 'INNER');
+		$this->db->join('todo_lists', 'todos.lists_id = todo_lists.list_id', 'INNER');
+
+    $query = $this->db->get_where('todos', $where);
+
+    if($query->num_rows() > 0) {
+     //return $query->result();
+	   return json_encode($query->result());	
+
+    } else {
+      return FALSE;
+    }
+  }
+
+ public function CompletedListTodos($id ) {
+
+    $where = array(
+      'list_id' => $id,
+      'status' => '0'
+		);
+ 
+		$this->db->join('users', 'users.user_id = todos.users_id', 'INNER');
+		$this->db->join('todo_lists', 'todos.lists_id = todo_lists.list_id', 'INNER');
+
+    $query = $this->db->get_where('todos', $where);
+
+    if($query->num_rows() > 0) {
+      return $query->result();
+    } else {
+      return FALSE;
+    }
+  }
+
+
 	/**
 	 * CRUD Lists
 	 */
@@ -200,18 +258,20 @@ class Todo_model extends CI_Model {
 	{
 		$this->db->insert('todo_lists', $data); 
 	}
+	
 	public function deleteList($id)
 	{
-			$query = $this->db->get_where('todo_lists', array('id'=>$id));  
+			$query = $this->db->get_where('todo_lists', array('list_id'=>$id));  
 
 			if ($query->num_rows()==0) {
 					return false;
 			}
 			else {
-					$this->db->delete('todo_lists', array('id' => $id)); 
+					$this->db->delete('todo_lists', array('list_id' => $id)); 
 					return true;
 			}    
 	}
+
 
 }
 

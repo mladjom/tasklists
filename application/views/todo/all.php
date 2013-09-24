@@ -1,0 +1,90 @@
+<div class="container">
+	<div class="row">
+		<div class="col-lg-10 col-sm-11" id="content">
+	<button id="AddProject">Add Project</button>
+	<section>
+		<div id="tabs">
+			<ul>
+				<li><a href="#project1">Project 1</a> <span class="ui-icon ui-icon-close">Remove Tab</span></li>
+			</ul>
+			<div id="project1">
+				<div class="accordion">
+					<div>
+						<h3><a href="#">Download jQuery UI</a></h3>
+						<div>
+							<input type="checkbox" class="completed">
+							<strong>Download jQuery UI</strong>
+							<div> Go to <a href="http://jqueryui.com/download">http://jqueryui.com/download</a> to download jQuery UI. </div>
+							<div> <strong>Date due:</strong> 11/15/2011 </div>
+						</div>
+					</div>
+					<div>
+						<h3><a href="#">Build Theme for jQuery UI</a></h3>
+						<div>
+							<input type="checkbox" class="completed">
+							<strong>Build Theme for jQuery UI</strong>
+							<div> Go to <a href="http://jqueryui.com/theme">http://jqueryui.com/theme</a> to build my custom theme. </div>
+							<div> <strong>Date due:</strong> 11/15/2011 </div>
+						</div>
+					</div>
+					<div>
+						<h3><a href="#">Build complex UI with jQuery UI</a></h3>
+						<div>
+							<input type="checkbox" class="completed">
+							<strong>Build complex UI with jQuery UI</strong>
+							<div> Using my newly downloaded jQuery UI and jQuery UI Theme build a complex UI with it. </div>
+							<div> <strong>Date due:</strong> 11/15/2011 </div>
+						</div>
+					</div>
+				</div>
+				<button class="AddToDo">Add</button>
+			</div>
+		</div>
+		<div id="AddProjectItem" title="Add a project">
+			<p>Use the form below to add a project.</p>
+			<div>
+				<label for="project">Project name:</label>
+				<input type="text" id="project">
+			</div>
+		</div>
+		<div id="AddToDoItem" title="Add To Do Item">
+			<p>Use the form below to add a to do item to the list.</p>
+			<div>
+				<label for="task">Task:</label>
+				<input type="text" id="task">
+			</div>
+			<div>
+				<label for="description">Description:</label>
+				<textarea id="description"></textarea>
+			</div>
+			<div>
+				<label for="duedate">Date due:</label>
+				<input type="text" id="duedate">
+			</div>
+		</div>
+	</section>
+</div>
+<script id="ToDoItemTemplate" type="text/x-jquery-tmpl">
+    <div>
+        <h3><a href="#">${task}</a></h3>
+        <div>
+            <input type="checkbox" class="completed"> <strong>${task}</strong> 
+            <div>
+                ${description}
+            </div>
+            <div>
+                <strong>Date due:</strong> ${duedate}
+            </div>
+        </div>
+    </div>
+</script> 
+<script id="newProjectTabTemplate" type="text/x-jquery-tmpl">
+    <div>
+        <div class="accordion">
+        </div>
+        <button class="AddToDo">Add</button>
+    </div>
+</script>
+		</div>
+	</div><!-- end: row -->
+</div><!-- end: container -->

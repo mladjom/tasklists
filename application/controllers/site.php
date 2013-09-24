@@ -35,7 +35,7 @@ class Site extends CI_Controller {
       $user = $this->model_users->get_user_by_username($this->input->post('username'));
       
       $session_data = array(
-        'id'       => $user->id,
+        'user_id'  => $user->user_id,
         'username' => $user->username,
         'email'    => $user->email
       );
@@ -129,9 +129,9 @@ class Site extends CI_Controller {
       $this->email->to($this->input->post('email'));
       $this->email->subject('Confirm your account');
       
-      $body  = '<p>Hello ' . $this->input->post('username') . '</p>';
-      $body .= '<p>Please click this <a href="' . base_url() . index_page().'/site/register_user/' . $key . '">link</a>';
-      $body .= ' to confirm your account</p>';
+      $body  = 'Hello ' . $this->input->post('username') . '</br>';
+      $body .= 'Please click this <a href="' . base_url() . index_page().'/site/register_user/' . $key . '">link</a>';
+      $body .= ' to confirm your account';
       
       $this->email->message($body);
       
@@ -156,7 +156,7 @@ class Site extends CI_Controller {
         
     if($this->model_users->activate_user($key)) {
       $session_data = array(
-        'id'       => $user->id,
+        'user_id'  => $user->user_id,
         'username' => $user->username,
         'email'    => $user->email
       );
