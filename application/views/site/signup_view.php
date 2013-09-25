@@ -1,15 +1,19 @@
 <div id="content" class="full">
 	<div class="container">
 		<div class="row">		
-		<div id="contact" class="col-lg-6 col-md-6 col-lg-offset-3">
+		<div id="signup" class="col-lg-6 col-md-6 col-lg-offset-3">
 		<div class="box">
 			<div class="box-header">
 				<h2><i class="icon-unlock"></i><span class="break"></span>Sign Up</h2>
 			</div>
 			<div class="box-content">
-			<?php if(validation_errors()): ?>
-				<p><?php echo validation_errors() ;?></p>
-			<?php endif; ?>
+				<?php if(validation_errors()): ?>
+					<div class="alert alert-danger">
+						<button data-dismiss="alert" class="close" type="button">×</button>
+						<strong>Oh snap!</strong> Change a few things up and try submitting again.
+						<p><?php echo validation_errors() ;?></p>
+					</div>
+				<?php endif; ?>
 				<div class="container">
 					<?php $attributes = array('id' => 'form-signup', 'class' => 'form-horizontal', 'role' =>'form');?>
 					<?php echo form_open('site/signup_validation', $attributes); ?>

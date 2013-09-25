@@ -2,6 +2,7 @@
 //echo validation_errors(); 
 $attributes = array('class' => 'form-horizontal', 'role' =>'form' , 'id' =>'add');
 echo form_open('todo/add', $attributes); ?>
+<div class="container">
 	<div class="form-group">
 		<label>Title</label>
 		<?php echo form_error('title'); ?>		
@@ -22,7 +23,8 @@ echo form_open('todo/add', $attributes); ?>
 		</select>
 	</div>
 	<?php endif ?>
-<div class="form-group">
+<?php /*?><div class="form-group">
 		<input type="submit" class="btn btn-primary" value="Add new"/>
-	</div>
+	</div><?php */?>
+</div>
 <?php echo form_close(); ?>

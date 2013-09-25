@@ -85,7 +85,7 @@ class Model_users extends CI_Model {
   
   public function get_user_by_id($id) {
     $where = array(
-      'id' => $id
+      'user_id' => $id
     );
     $query = $this->db->get_where('users', $where);
         

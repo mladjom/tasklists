@@ -1,6 +1,3 @@
-<?php		
-
-?>
 <div class="container">
 	<div class="row">
 		<div class="col-lg-10 col-sm-11" id="content">
@@ -10,6 +7,9 @@
 				<?php echo $flash_message ; ?>
 			</div>
 			<?php endif ; ?>
+<table id="taskList" class="taskList">
+ <tbody />  
+</table>
 			<div class="row">
 				<div class="col-lg-6 col-md-6">
 					<div class="box">
@@ -27,22 +27,13 @@
 							<div class="box-content">
 								<div class="todo">
 									<ul class="todo-list" id="active">
-										<?php foreach($active_todos as $todo): ?>
-											<li id="<?php echo $todo->id ?>">
-												<span class="todo-actions">
-													<?php echo anchor("todo/complete/$todo->id", '<i class="icon-check-empty"></i>', 'class="completed"'); ?>
-												</span>
-												<span class="title"><?php echo $todo->title ?></span> <span class="desc"><?php echo $todo->description ?></span> 
-												<?php echo anchor("todo/update/$todo->id", 'update' , 'class="btn btn-success btn-xs UpdateToDo"'); ?> 
-												<?php echo anchor("todo/delete/$todo->id", 'delete' , 'class="btn btn-danger btn-xs delete"'); ?> 
-											</li>
-										<?php endforeach; ?>
+										<div id="loader"><img src="<?php echo base_url("assets/img/spinner-mini.gif");?>" alt="loading..."></div>
 									</ul>
 								</div>	
 							</div><!-- end: box-content -->									
 							<div class="box-content">
 								<button class="AddToDo btn btn-primary">Add new</button>
-								<?php $this->load->view('todo/add'); ?>
+								<?php //$this->load->view('todo/add'); ?>
 							</div>		
 
 							<?php else: ?>
@@ -52,9 +43,15 @@
 									<h4 class="alert-heading">Warning!</h4>
 									<p>Best check yo self, you haven no tasks. Let's add some</p>
 								</div>
+								<div class="box-content">
+									<div class="todo">
+										<ul class="todo-list" id="active">
+										</ul>
+									</div>
+								</div>
 								<div class="container">
 								<button class="AddToDo btn btn-primary">Add new</button>
-								<?php $this->load->view('todo/add'); ?>
+								<?php //$this->load->view('todo/add'); ?>
 								</div>
 							</div>								
 						<?php endif; ?>					
@@ -63,22 +60,14 @@
 
 				<div class="col-lg-6 col-md-6">
 					<div class="box">
-						<div class="box-header">
+						<div class="box-header-green">
 							<h2><i class="icon-check"></i>Completed List</h2>
 						</div>
 						<?php if($completed_todos): ?>
 							<div class="box-content">
 								<div class="todo">
-									<ul class="todo-list">
-										<?php foreach($completed_todos as $todo): ?>
-											<li>
-												<span class="todo-actions">
-													<?php echo anchor("todo/incomplete/$todo->id", '<i class="icon-check"></i>', ''); ?>
-												</span>							
-												<span class="title"><?php echo $todo->title ?></span> <span class="desc"><?php echo $todo->description ?></span> 
-												<?php echo anchor("todo/delete/$todo->id", 'delete' , 'class="btn btn-danger btn-xs"'); ?> 
-											</li>
-										<?php endforeach ;?>
+									<ul class="todo-list" id="completed">
+										<div id="loader2"><img src="<?php echo base_url("assets/img/spinner-mini.gif");?>" alt="loading..."></div>
 									</ul>				
 								</div>	
 							</div><!-- end: box-content -->	
@@ -97,20 +86,3 @@
 		</div>
 	</div><!-- end: row -->
 </div><!-- end: container -->
-<style>
-#dialog-confirm, #AddToDoItem, #UpdateToDoItem {
-    display: none;
-}
-</style>
-<div id="UpdateToDoItem" title="Update To Do Item">
-	<p>Use the form below to update a to do item.</p>
-	<?php //$this->load->view('todo/update'); ?>
-</div>	
-<div id="AddToDoItem" title="Add To Do Item">
-	<p>Use the form below to add a to do item to the list.</p>
-	<?php $this->load->view('todo/add'); ?>
-</div>		
-
-<div id="dialog-confirm" title="Deleting this item?">
-<p><span class="ui-icon ui-icon-alert" style="float: left; margin: 0 7px 20px 0;"></span>Are you sure?</p>
-</div>

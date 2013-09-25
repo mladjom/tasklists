@@ -193,7 +193,7 @@ class Todo_model extends CI_Model {
 		return $query->row();
 	}
  
- public function getListTodos($id ) {
+ public function getListTodos($id) {
 
     $where = array(
       'list_id' => $id,
@@ -224,7 +224,8 @@ class Todo_model extends CI_Model {
 
     if($query->num_rows() > 0) {
      //return $query->result();
-	   return json_encode($query->result());	
+
+	   echo json_encode($query->result());	
 
     } else {
       return FALSE;
@@ -244,7 +245,7 @@ class Todo_model extends CI_Model {
     $query = $this->db->get_where('todos', $where);
 
     if($query->num_rows() > 0) {
-      return $query->result();
+	   echo json_encode($query->result());	
     } else {
       return FALSE;
     }

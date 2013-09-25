@@ -40,7 +40,7 @@
 					<div class="nav-no-collapse header-nav">
 						<ul class="nav navbar-nav pull-right">
         			<li>	Number of queries:	<?php echo $this->db->total_queries();?>	
-							<?php echo anchor('app/add_todo' , '<i class="icon-wrench"></i>', 'class="btn"') ?></li>
+							<?php echo anchor('#' , '<i class="icon-wrench"></i>', 'class="btn"') ?></li>
 						<!-- start: User Dropdown -->
 							<li class="dropdown">
 								<a class="btn account dropdown-toggle" data-toggle="dropdown" href="#">
@@ -54,7 +54,7 @@
 								<ul class="dropdown-menu">
 									<li class="dropdown-menu-title">
 									</li>
-									<li><?php echo anchor('app/user_info', '<i class="icon-user"></i> Profile') ?></li>
+									<li><?php echo anchor('site/user_info', '<i class="icon-user"></i> Profile') ?></li>
 									<li><?php echo anchor('site/logout', '<i class="icon-off"></i> Logout') ?></li>
 								</ul>
 							</li>

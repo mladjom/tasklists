@@ -110,7 +110,50 @@ class Todo extends CI_Controller {
 				$this->load->view('todo/update', $data);
 		}
 	}
+	//---------------------------------
+	// AJAX REQUEST, ALL TODOS
+	//---------------------------------
+	public function allTodos() {
+		// Array of data 
+		// This typically would be a call to your Model class to return a collection of objects
+		$data = $this->todo_model->allTodosByUser($this->session->userdata('user_id'));
+		
+		// Build our view's data object
+			echo json_encode($data);
 
+		// Load the JSON view
+		$this->load->view('json', $data);
+	}
+	//---------------------------------
+	// AJAX REQUEST, ACTIVE TODOS
+	//---------------------------------
+	public function activeTodos() {
+		// Array of data 
+		// This typically would be a call to your Model class to return a collection of objects
+		$data = $this->todo_model->activeTodosByUser($this->session->userdata('user_id'));
+		
+		// Build our view's data object
+			echo json_encode($data);
+
+		// Load the JSON view
+		$this->load->view('json', $data);
+	}
+	//---------------------------------
+	// AJAX REQUEST, COMPLETED TODOS
+	//---------------------------------
+	public function completedTodos() {
+		// Array of data 
+		// This typically would be a call to your Model class to return a collection of objects
+		$data = $this->todo_model->completedTodosByUser($this->session->userdata('user_id'));
+		
+		// Build our view's data object
+			echo json_encode($data);
+
+		// Load the JSON view
+		$this->load->view('json', $data);
+	}
+	
+	
 	public function lists($id)
 	{
 	
@@ -124,11 +167,12 @@ class Todo extends CI_Controller {
 
 		$content['completed_list_todos'] = $this->todo_model->CompletedListTodos($id);
 		
+		
 		// Loading views
-		$this->load->view('includes/header');
-		$this->load->view('includes/sidebar', $content);
+		//$this->load->view('includes/header');
+		//$this->load->view('includes/sidebar', $content);
 		$this->load->view('todo/lists', $data);
-		$this->load->view('includes/footer');
+		//$this->load->view('includes/footer');
 
 	}
 

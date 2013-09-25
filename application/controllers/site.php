@@ -167,4 +167,13 @@ class Site extends CI_Controller {
     }
   }
 
+ public function user_info() {
+    $data['header'] = 'Your Info';
+    $data['content'] = 'site/user_view';
+    $data['user_info'] = $this->model_users->get_user_by_id($this->session->userdata('user_id'));
+    $data['date'] = date_parse($data['user_info']->date);
+    
+    $this->load->view(TEMPLATE, $data);
+  }
+
 }

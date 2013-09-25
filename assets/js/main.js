@@ -172,6 +172,17 @@ $(document).ready(function(){
 						return false;
 				})*/
 
+function rowBuilder() {
+      return "<li>"
+            + "<span class='todo-actions'><a class='active' href='http://todo.divinedeveloper.com/todo/complete/" + this['id'] + "'><i class='icon-check-empty'></i></a></span>"
+         		+ "<span class='title'>" + this['title'] + "</span>"
+         		+ "<span class='description'>" + this['description'] + "</span>"
+        		+ "<a class='btn btn-success btn-xs update' href='http://todo.divinedeveloper.com/todo/delete/" + this['id'] + "'>update</a>"
+         		+ "<a class='btn btn-danger btn-xs delete' href='http://todo.divinedeveloper.com/todo/update/" + this['id'] + "'>delete</a>"
+      		+ '</li>';
+}
+
+
   $("#form-login").validate({
 
     errorElement: "span",

@@ -87,13 +87,33 @@ h6 {
 	font-size: 16px;
 	overflow: hidden
 }
+.box .box-header-green {
+	background: #BDEA74;
+	color: white;
+	font-size: 16px;
+	overflow: hidden
+}
 .box .box-header h2 {
+	float: left;
+	padding: 10px 0;
+	margin: 0 0 0 20px
+}
+.box .box-header-green h2 {
 	float: left;
 	padding: 10px 0;
 	margin: 0 0 0 20px
 }
 .box .box-header h2 i {
 	background: #1e8fc6;
+	color: white;
+	padding: 10px 0;
+	width: 36px;
+	display: inline-block;
+	text-align: center;
+	margin: -10px 20px -10px -20px
+}
+.box .box-header-green h2 i {
+	background: #78CD51;
 	color: white;
 	padding: 10px 0;
 	width: 36px;
