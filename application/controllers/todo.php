@@ -77,6 +77,7 @@ class Todo extends CI_Controller {
 	
 	}
 
+
 		public function delete($id)
     {
 
@@ -153,26 +154,57 @@ class Todo extends CI_Controller {
 		$this->load->view('json', $data);
 	}
 	
+	//------------------------------------------
+	// AJAX REQUEST, ACTIVE PER LIST TODOS
+	//------------------------------------------
+	public function activeListTodos() {
+		// Array of data 
+		// This typically would be a call to your Model class to return a collection of objects
+		$data = $this->todo_model->activeListTodos($this->session->userdata('user_id'));
+		
+		// Build our view's data object
+			echo json_encode($data);
+
+		// Load the JSON view
+		$this->load->view('json_lists', $data);
+	}
+	//------------------------------------------
+	// AJAX REQUEST, COMPLETED PER LIST TODOS
+	//------------------------------------------
+	public function completedListTodos() {
+		// Array of data 
+		// This typically would be a call to your Model class to return a collection of objects
+		$data = $this->todo_model->completedListTodos($this->session->userdata('user_id'));
+			$data = $this->todo_model->getListsId($id);
 	
+		// Build our view's data object
+			echo json_encode($data);
+
+		// Load the JSON view
+		$this->load->view('json_lists', $data);
+	}	
+
 	public function lists($id)
 	{
 	
 		$data = $this->todo_model->getListsId($id);
-
- 		$content['user_lists'] = $this->todo_model->getUserLists($this->session->userdata('user_id'));
+		
+		$content['user_lists'] = $this->todo_model->getUserLists($this->session->userdata('user_id'));
+		$content['current_list'] = $this->todo_model->getListsId($id);
  
 		$content['list_todos'] = $this->todo_model->getListTodos($id);
 
-		$content['active_list_todos'] = $this->todo_model->ActiveListTodos($id);
+		$content['active_list_todos'] = $this->todo_model->activeListTodos($id);
 
-		$content['completed_list_todos'] = $this->todo_model->CompletedListTodos($id);
+		$content['completed_list_todos'] = $this->todo_model->completedListTodos($id);
+		$content['flash_message'] = $this->session->flashdata('message');		
 		
 		
 		// Loading views
-		//$this->load->view('includes/header');
-		//$this->load->view('includes/sidebar', $content);
+		$this->load->view('includes/header');
+		$this->load->view('includes/sidebar', $content);
 		$this->load->view('todo/lists', $data);
-		//$this->load->view('includes/footer');
+		$this->load->view('includes/footer');
 
 	}
 

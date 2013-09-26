@@ -210,7 +210,7 @@ class Todo_model extends CI_Model {
       return FALSE;
     }
   }
- public function ActiveListTodos($id) {
+ public function activeListTodos($id) {
 
     $where = array(
       'list_id' => $id,
@@ -223,16 +223,15 @@ class Todo_model extends CI_Model {
     $query = $this->db->get_where('todos', $where);
 
     if($query->num_rows() > 0) {
-     //return $query->result();
+     return $query->result();
 
-	   echo json_encode($query->result());	
 
     } else {
       return FALSE;
     }
   }
 
- public function CompletedListTodos($id ) {
+ public function completedListTodos($id ) {
 
     $where = array(
       'list_id' => $id,
@@ -245,7 +244,7 @@ class Todo_model extends CI_Model {
     $query = $this->db->get_where('todos', $where);
 
     if($query->num_rows() > 0) {
-	   echo json_encode($query->result());	
+     return $query->result();
     } else {
       return FALSE;
     }

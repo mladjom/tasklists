@@ -86,3 +86,47 @@
 		</div>
 	</div><!-- end: row -->
 </div><!-- end: container -->
+<script type='text/javascript' language='javascript'>
+$(window).load(function() {
+
+$.getJSON('<?php echo base_url().'todo/allTodos';?>', function(data) {
+ 	$("#loader").css("display", "block");
+  $.each(data, function(i, item){
+    if(item.status === "1"){
+    	li = $('<li/>');
+    	li.append("<span class='todo-actions'><a class='active' href='http://todo.divinedeveloper.com/todo/complete/" + item.id + "'><i class='icon-check-empty'></i></a></span>");
+			li.append("<span class='title'>" + item.title + "</span>");
+			li.append("<span class='description'>" + item.description + "</span>");
+			li.append("<a class='btn btn-success btn-xs UpdateToDo' href='http://todo.divinedeveloper.com/todo/update/" + item.id + "'>update</a>");
+			li.append("<a class='btn btn-danger btn-xs delete' href='http://todo.divinedeveloper.com/todo/delete/" + item.id + "'>delete</a>");
+			li.addClass(item.id);
+    	$('ul#active').append(li);
+			
+    }
+  });
+
+  $.each(data, function(i, item){
+    if(item.status === "0"){
+    	li = $('<li/>');
+    	li.append("<span class='todo-actions'><a class='active' href='http://todo.divinedeveloper.com/todo/complete/" + item.id + "'><i class='icon-check'></i></a></span>");
+			li.append("<span class='title'>" + item.title + "</span>");
+			li.append("<span class='description'>" + item.description + "</span>");
+			li.append("<a class='btn btn-danger btn-xs delete' href='http://todo.divinedeveloper.com/todo/delete/" + item.id + "'>delete</a>");
+			li.addClass(item.id);
+    	$('ul#completed').append(li);
+			
+    }
+
+
+ 	$("#loader").css("display", "none");
+  });
+});
+
+
+
+
+
+
+}); // Closing $(document).ready()
+
+</script>

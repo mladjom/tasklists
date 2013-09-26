@@ -831,6 +831,21 @@ div[data-role="editor-toolbar"] {
 	-moz-box-sizing: content-box;
 	box-sizing: content-box
 }
+a.notifier {
+	position: absolute!important;
+	top: -2px;
+	right: 0;
+	line-height: 16px;
+	height: 16px;
+	padding: 6px 10px;
+	color: white!important;
+	text-decoration: none;
+}
+a.notifier:hover {
+    background: none!important;
+    color: #ff5454!important;
+    box-shadow: none;
+}
 .notification.small {
 	padding: 2px 7px;
 	color: white!important;

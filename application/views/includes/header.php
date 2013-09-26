@@ -14,6 +14,14 @@
 	<!-- start: Mobile Specific -->
 	<meta name="viewport" content="width=device-width, initial-scale=1">
 	<!-- end: Mobile Specific -->
+	<!-- page scripts -->		
+	<script type="text/javascript" src="http://ajax.googleapis.com/ajax/libs/jquery/2.0.3/jquery.min.js"></script>
+	<script type="text/javascript" src="http://ajax.googleapis.com/ajax/libs/jqueryui/1.10.3/jquery-ui.min.js"></script>		
+	<script type="text/javascript" src="http://ajax.aspnetcdn.com/ajax/jquery.validate/1.9/jquery.validate.min.js"></script>
+	<script type='text/javascript' src='<?php echo base_url("assets/js/vendor/modernizr-2.6.2.min.js");?>'></script>
+	<script type='text/javascript' src='<?php echo base_url("assets/js/plugins.js");?>'></script>	
+<?php /*?>		<script type='text/javascript' src='<?php echo base_url("assets/js/main.js");?>'></script>
+<?php */?> 
 	<!-- start: CSS -->
 	<!-- Bootstrap core CSS -->
 	<link href="<?php echo base_url("assets/css/bootstrap.min.css");?>" rel="stylesheet">	
@@ -29,6 +37,7 @@
 	<link rel="apple-touch-icon-precomposed" sizes="114x114" href="<?php echo base_url("assets/ico/apple-touch-icon-114x114-precomposed.png");?>">
 	<link rel="apple-touch-icon-precomposed" sizes="144x144" href="<?php echo base_url("assets/ico/apple-touch-icon-144x144-precomposed.png");?>">
 	<!-- end: Favicon and Touch Icons -->
+
   </head>
   <body>
 		<!-- start: Header -->
