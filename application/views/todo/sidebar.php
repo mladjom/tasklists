@@ -1,4 +1,3 @@
-<div class="col-lg-2 col-sm-1" id="sidebar-left">
 	<div class="sidebar-nav navbar-collapse">
  				<?php if($user_lists): ?>
 				<ul class="nav nav-tabs nav-stacked main-menu">
@@ -20,5 +19,3 @@
 				<?php endif; ?>
 			</div>
 			<button class="addList btn btn-primary">Add new list</button>
-			<?php //$this->load->view('todo/add_list'); ?>
-</div>

@@ -1,7 +1,7 @@
 <?php 
 echo validation_errors(); 
-$attributes = array('class' => 'form-horizontal', 'role' =>'form' , 'id' =>'add');
-echo form_open('todo/add', $attributes); ?>
+$attributes = array('class' => 'form-horizontal', 'role' =>'form' , 'id' =>'add_list');
+echo form_open('todo/add_list_todo', $attributes); ?>
 <div class="container">
 	<div class="form-group">
 		<label>Title</label>
@@ -13,9 +13,12 @@ echo form_open('todo/add', $attributes); ?>
     <?php echo form_error('description'); ?>		
 		<textarea maxlength="255" class="form-control" id="description" name="description"><?php echo set_value('description'); ?></textarea>
 	</div>
+<?php if (isset($current_list)): ?>
  <input type="hidden" name="list" value="<?php echo $current_list->list_id; ?>" />
-	<div class="form-group">
+	<?php endif ;?>
+
+<!--	<div class="form-group">
 		<input type="submit" class="btn btn-primary" value="Add new"/>
-	</div>
+	</div>-->
 </div>
 <?php echo form_close(); ?>

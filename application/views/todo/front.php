@@ -1,7 +1,4 @@
-<div class="container">
-	<div class="row">
-		<div class="col-lg-10 col-sm-11" id="content">
-			<?php if ($flash_message): ?>
+<?php if ($flash_message): ?>
 			<div class="alert alert-success">
 				<button data-dismiss="alert" class="close" type="button">×</button>
 				<?php echo $flash_message ; ?>
@@ -32,7 +29,7 @@
 								<button class="addToDo btn btn-primary">Add new</button>
 								<?php //$this->load->view('todo/add'); ?>
 							</div>		
-						<?php else: ?>
+<?php /*?>							<?php else: ?>
 							<div class="box-content">
 								<div class="alert alert-warning">
 									<button data-dismiss="alert" class="close" type="button">×</button>
@@ -46,10 +43,10 @@
 									</div>
 								</div>
 								<div class="container">
-								<button class="addToDo btn btn-primary">Add new</button>
+								<button class="AddToDo btn btn-primary">Add new</button>
 								<?php //$this->load->view('todo/add'); ?>
 								</div>
-							</div>								
+							</div><?php */?>								
 						<?php endif; ?>					
 					</div>
 				</div>
@@ -67,21 +64,19 @@
 									</ul>				
 								</div>	
 							</div><!-- end: box-content -->	
-						<?php else: ?>
+<?php /*?>						<?php else: ?>
 						<div class="box-content">
 							<div class="alert alert-warning">
 								<button data-dismiss="alert" class="close" type="button">×</button>
 								<h4 class="alert-heading">Warning!</h4>
 								<p>Best check yo self, you haven't completed anything yet.</p>
 							</div>
-						</div>
+						</div><?php */?>
 						<?php endif ;?>	
 					</div><!-- end: box -->	
 				</div><!-- end: col -->
 			</div>	
-		</div>
-	</div><!-- end: row -->
-</div><!-- end: container -->
+
 <script type='text/javascript' language='javascript'>
 $(document).ready(function() {
 
@@ -117,6 +112,51 @@ $.getJSON('<?php echo base_url().'todo/allTodos';?>', function(data) {
  	$("#loader").css("display", "none");
   });
 });
+
+		var id;
+		var del_id;
+		
+		 // Configuring the delete confirmation dialog
+		$("#DeleteConfirm").dialog({
+				resizable: false,
+				autoOpen: false,
+				modal: true,
+				buttons: {
+		
+						'Yes': function () {
+		
+								$.ajax({
+										url: id,
+										type: "POST",
+										success: function () {
+												$('#DeleteConfirm').dialog('close');
+										}
+								})
+								$(this).dialog("close");
+		
+								del_id = del_id;
+								$('li.' + del_id).fadeOut(function () {
+										$(this).remove();
+								});
+						},
+		
+						'No': function () {
+								$(this).dialog("close");
+						}
+		
+				}
+		
+		});
+		$("ul").on("click", ".delete", function (e) {
+		
+				id = $(this).attr('href');
+				del_id = $(this).parent().attr("class");
+		
+				$('#DeleteConfirm').dialog('open');
+				e.preventDefault();
+		
+		});
+
 
 				var addToDo = $("#AddToDoItem").dialog({
 

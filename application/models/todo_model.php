@@ -125,6 +125,7 @@ class Todo_model extends CI_Model {
 		$this->db->where('id', $id);
 		$this->db->update('todos', $data); 
 	}
+
 	
 	public function setComplete($id)
 	{
@@ -271,7 +272,15 @@ class Todo_model extends CI_Model {
 					return true;
 			}    
 	}
-
+	public function updateList($id)
+	{
+		$data = array(
+				'list_name'=>$this->input->post('list_name'),
+				'list_id'=>$id
+		);
+		$this->db->where('list_id', $id);
+		$this->db->update('todo_lists', $data); 
+	}
 
 }
 

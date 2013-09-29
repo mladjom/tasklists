@@ -831,7 +831,7 @@ div[data-role="editor-toolbar"] {
 	-moz-box-sizing: content-box;
 	box-sizing: content-box
 }
-a.notifier {
+a.notifier, a.notifier2 {
 	position: absolute!important;
 	top: -2px;
 	right: 0;
@@ -841,7 +841,10 @@ a.notifier {
 	color: white!important;
 	text-decoration: none;
 }
-a.notifier:hover {
+a.notifier2{
+    right: 25px;
+}
+a.notifier:hover, a.notifier2:hover {
     background: none!important;
     color: #ff5454!important;
     box-shadow: none;

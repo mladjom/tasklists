@@ -25,8 +25,33 @@ class Todo extends CI_Controller {
 		//$data['get_completed'] = $this->todo_model->getActive(); 		
     
 		$data['all_todos'] = $this->todo_model->allTodosByUser($this->session->userdata('user_id'));
-    
+ 		   
 		$content['user_lists'] = $this->todo_model->getUserLists($this->session->userdata('user_id'));
+		
+		//Here we geting user active todos 
+		$data['active_todos'] = $this->todo_model->activeTodosByUser($this->session->userdata('user_id'));
+
+		//Here we geting user completed todos 
+		$data['completed_todos'] = $this->todo_model->completedTodosByUser($this->session->userdata('user_id'));		
+
+ 
+		//$data['todo_lists'] = $this->todo_model->getAllLists();
+		
+		$data['flash_message'] = $this->session->flashdata('message');		
+	    //echo json_encode($data['active_todos']);	
+		// Loading views
+		$this->load->view('includes/header');
+		$this->load->view('includes/sidebar', $content);
+		$this->load->view('todo/index', $data);
+		$this->load->view('includes/footer', $content);
+
+	}
+	public function front()
+	{
+		
+    
+		$data['all_todos'] = $this->todo_model->allTodosByUser($this->session->userdata('user_id'));
+ 		   
 		
 		//Here we geting user active todos 
 		$data['active_todos'] = $this->todo_model->activeTodosByUser($this->session->userdata('user_id'));
@@ -39,15 +64,26 @@ class Todo extends CI_Controller {
 		$data['flash_message'] = $this->session->flashdata('message');		
 	    //echo json_encode($data['active_todos']);	
 		// Loading views
-		$this->load->view('includes/header');
-		$this->load->view('includes/sidebar', $content);
-		$this->load->view('todo/index', $data);
-		$this->load->view('includes/footer');
+
+		$this->load->view('todo/front', $data);
 
 	}
 
+	public function sidebar()
+	{
+
+ 		   
+		$content['user_lists'] = $this->todo_model->getUserLists($this->session->userdata('user_id'));
+
+		$this->load->view('todo/sidebar', $content);
+
+	}
+
+
 	public function add()
 	{   
+
+
 		// validation rules
 		$this->form_validation->set_rules('title', 'Title', 'required');
 		$this->form_validation->set_rules('description', 'Description', 'max_length[255]');
@@ -60,8 +96,7 @@ class Todo extends CI_Controller {
 
 		}
 				
- 
-		if ($this->form_validation->run())
+ 		if ($this->form_validation->run())
         {
 			$data = array(
 							'title'=>$this->input->post('title'),
@@ -76,7 +111,35 @@ class Todo extends CI_Controller {
 		}
 	
 	}
+	public function add_list_todo()
+	{   
+		// validation rules
+		$this->form_validation->set_rules('title', 'Title', 'required');
+		$this->form_validation->set_rules('description', 'Description', 'max_length[255]');
+		// set error delimiters
+		$this->form_validation->set_error_delimiters('<label for="inputError" class="text-warning">', '</label>');
 
+		if ($this->form_validation->run() == FALSE)
+		{
+        $this->index();
+
+		}
+				
+ 		if ($this->form_validation->run())
+        {
+			$data = array(
+							'title'=>$this->input->post('title'),
+							'description'=>$this->input->post('description'),
+							'lists_id'=>$this->input->post('list'),
+							'users_id'=>$this->session->userdata('user_id')
+							);
+				$this->todo_model->add($data);
+	
+				$this->session->set_flashdata('message', 'Done. You have added new task.');            
+				redirect('/');
+		}
+	
+	}
 
 		public function delete($id)
     {
@@ -106,11 +169,10 @@ class Todo extends CI_Controller {
 			$this->session->set_flashdata('message', 'Done. You have updated task.');            
 			redirect('/');
 		}
-		else
-		{
-				$this->load->view('todo/update', $data);
-		}
+
 	}
+	
+	
 	//---------------------------------
 	// AJAX REQUEST, ALL TODOS
 	//---------------------------------
@@ -201,10 +263,10 @@ class Todo extends CI_Controller {
 		
 		
 		// Loading views
-		$this->load->view('includes/header');
-		$this->load->view('includes/sidebar', $content);
-		$this->load->view('todo/lists', $data);
-		$this->load->view('includes/footer');
+		//$this->load->view('includes/header');
+		//$this->load->view('includes/sidebar', $content);
+		$this->load->view('todo/lists', $content);
+		//$this->load->view('includes/footer');
 
 	}
 
@@ -216,12 +278,27 @@ class Todo extends CI_Controller {
         if ($this->todo_model->deleteList($id)) {
             $this->session->set_flashdata('message', "Done. You have deleted $data->list_name.");                        
         } else {
-            $this->session->set_flashdata('message', "No data found. You deleted wrong to do."); 
+            $this->session->set_flashdata('message', "No data found. You deleted wrong list."); 
         }
         redirect('');
  
     }
+		public function update_list($id)
+    {
 
+  			// validation rules
+				$this->form_validation->set_rules('list_name', 'List name', 'required');
+
+	      $data = $this->todo_model->getListsId($id);
+ 
+        if ($this->todo_model->updateList($id)) {
+            $this->session->set_flashdata('message', "Done. You have updated $data->list_name.");                        
+        } else {
+            $this->session->set_flashdata('message', "No data found. You updated wrong list."); 
+        }
+ 
+    }
+	
 	public function add_list()
 	{   
  
@@ -262,7 +339,7 @@ class Todo extends CI_Controller {
         redirect('');
     }
 
-    public function incomplete($id)
+    public function active($id)
     {
 
         $data = $this->todo_model->getById($id);
