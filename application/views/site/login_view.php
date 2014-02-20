@@ -33,6 +33,9 @@
 					</div>
 					<?php echo form_close() ?>
 					<p>
+						Demo Login Credentials user:TestTest pass:123456					
+					</p>
+					<p>
 						Not a member?<br /> <?= anchor('site/signup', 'Sign Up') ?>
 					</p>
 				</div>

@@ -3,6 +3,8 @@
 // Defining constant for template route
 DEFINE('TEMPLATE', 'template/layout');
 
+// Define PAGINATION per page
+DEFINE('PER_PAGE', 5);
 /*
 |--------------------------------------------------------------------------
 | File and Directory Modes

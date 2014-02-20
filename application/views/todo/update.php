@@ -2,7 +2,6 @@
 //echo validation_errors(); 
 ?>
 <form id="update" role="form" class="form-horizontal" accept-charset="utf-8" method="post" action="#">	
-<div class="container">
 	<div class="form-group">
 		<label>Title</label>
 		<?php echo form_error('title'); ?>		
@@ -16,5 +15,4 @@
 	<div class="form-group">
 		<input type="submit" class="btn btn-primary" value="Update task"/>
 	</div>
-</div>
 </form>		

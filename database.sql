@@ -1,25 +1,3 @@
--- phpMyAdmin SQL Dump
--- version 4.0.5
--- http://www.phpmyadmin.net
---
--- Värd: localhost
--- Skapad: 24 sep 2013 kl 07:21
--- Serverversion: 5.1.70-cll
--- PHP-version: 5.3.17
-
-SET SQL_MODE = "NO_AUTO_VALUE_ON_ZERO";
-SET time_zone = "+00:00";
-
-
-/*!40101 SET @OLD_CHARACTER_SET_CLIENT=@@CHARACTER_SET_CLIENT */;
-/*!40101 SET @OLD_CHARACTER_SET_RESULTS=@@CHARACTER_SET_RESULTS */;
-/*!40101 SET @OLD_COLLATION_CONNECTION=@@COLLATION_CONNECTION */;
-/*!40101 SET NAMES utf8 */;
-
---
--- Databas: `divine_citodo`
---
-
 -- --------------------------------------------------------
 
 --
@@ -66,7 +44,5 @@ CREATE TABLE IF NOT EXISTS `users` (
   PRIMARY KEY (`user_id`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8 AUTO_INCREMENT=1 ;
 
-/*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;
-/*!40101 SET CHARACTER_SET_RESULTS=@OLD_CHARACTER_SET_RESULTS */;
-/*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
-
+INSERT INTO `users` ( `user_id` , `username` , `password` , `email` , `date` , `active` , `activation_string` )
+VALUES ( 1, 'TestTest', 'e10adc3949ba59abbe56e057f20f883e', 'test@test.com', '2012-11-09 12:34:21', 1, NULL ) , ( 2, 'DemoDemo', 'e10adc3949ba59abbe56e057f20f883e', 'demo@demo.com', '2012-11-18 16:12:43', 1, NULL ) 

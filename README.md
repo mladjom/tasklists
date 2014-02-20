@@ -7,6 +7,8 @@ A complete web sample and template of a Tasklists ToDo Manager system using the 
 
 ## Demo available at http://todo.divinedeveloper.com/
 
+## Demo Login Credentials user:TestTest pass:123456
+
 ## Intro and Notes
 
 This is a very simple tasklists todo manager with user authenthication. Enjoy! And all feedback is very welcome!
